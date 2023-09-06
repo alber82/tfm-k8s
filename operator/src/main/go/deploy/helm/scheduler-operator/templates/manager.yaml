@@ -1,0 +1,66 @@
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "scheduler-operator.fullname" . }}
+  namespace: {{.Release.Namespace}}
+  labels:
+    control-plane: {{ include "scheduler-operator.fullname" . }}
+spec:
+  selector:
+    matchLabels:
+      control-plane: {{ include "scheduler-operator.fullname" . }}
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: manager
+      labels:
+        control-plane: {{ include "scheduler-operator.fullname" . }}
+    spec:
+      serviceAccountName: {{ include "scheduler-operator.serviceAccountName" . }}
+      priorityClassName: {{ .Values.priorityClassName | quote }}
+      hostname: manager
+      subdomain: {{ include "scheduler-operator.fullname" . }}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 2000
+        runAsGroup: 2000
+        fsGroupChangePolicy: "OnRootMismatch"
+      containers:
+        - image: "{{ .Values.image.repository }}/{{ .Values.images.operator }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          name: manager
+          ports:
+            - containerPort: 8080
+              name: metrics
+              protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: {{ include "scheduler-operator.fullname" . }}
+          env:
+            # Stratio Operators Base
+            - name: KUBERNETES_SERVICE_NAME
+              value: {{ include "scheduler-operator.fullname" . }}
+            - name: KUBERNETES_SERVICE_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+
+          resources: {{- toYaml .Values.resources | nindent 12 }}
+          securityContext:
+            allowPrivilegeEscalation: false
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8081
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8081
+            initialDelaySeconds: 5
+            periodSeconds: 10
+      terminationGracePeriodSeconds: 10

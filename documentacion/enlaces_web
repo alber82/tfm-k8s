@@ -1,0 +1,122 @@
+[1] Cloud Fundation. Kubernetes. Último acceso: junio 9, 2023
+https://www.cncf.io/projects/kubernetes/
+
+[2] Kubernetes – Pod. Último acceso: junio 22, 2023
+https://kubernetes.io/docs/concepts/workloads/pods/
+
+[3] Kubernetes - Architecture Overview. Último acceso: junio 9, 2023
+https://medium.com/devops-mojo/kubernetes-architecture-overview-introduction-to-k8s-architecture-and-understanding-k8s-cluster-components-90e11eb34ccd
+
+[4] Kubernetes - Controller. Último acceso: junio 22, 2023
+https://kubernetes.io/docs/concepts/architecture/controller/
+
+[5] Kubernetes – ReplicaSets. Último acceso: junio 22, 2023
+https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/
+
+[6] Kubernetes – Deployments. Último acceso: junio 22, 2023
+https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+
+[7] Operator SDK. Último acceso: junio 8, 2023
+https://sdk.operatorframework.io/
+
+[8] Kubebuilder. Github. Último acceso: junio 8, 2023
+https://github.com/kubernetes-sigs/kubebuilder
+
+[9] Everything You Need To Know About Kubernetes Scheduler. Último acceso: junio 9, 2023
+https://totalcloudio.medium.com/everything-you-need-to-know-about-kubernetes-scheduler-b1e67a4257f1
+
+[10] Kubernetes Scheduler. Último acceso: junio 9, 2023
+https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/
+
+[11] The Kubernetes Scheduler. Último acceso: junio 9, 2023
+https://dominik-tornow.medium.com/the-kubernetes-scheduler-cd429abac02f
+
+[12] Configure Multiple Schedulers. Último acceso: junio 9, 2023
+https://kubernetes.io/docs/tasks/extend-kubernetes/configure-multiple-schedulers/
+
+[13] Random Kubernetes scheduler. Último acceso: junio 9, 2023
+https://github.com/martonsereg/random-scheduler
+
+[14] A Deep Dive Into Kubernetes Informers. Último acceso: julio 2, 2023
+https://aly.arriqaaq.com/kubernetes-informers/
+
+[15] Kind. Último acceso: junio 9, 2023
+https://kind.sigs.k8s.io/
+
+[16] Minikube. Documentation. Último acceso: junio 9, 2023
+https://minikube.sigs.k8s.io/docs/start/
+
+[17] Prometheus. Overview. Último acceso: junio 8, 2023
+https://prometheus.io/docs/introduction/overview/
+
+[18] Monitoring Linux host metrics with the node exporter. Último acceso: junio 10, 2023
+https://prometheus.io/docs/guides/node-exporter/
+
+[19] How to Setup Prometheus Monitoring On Kubernetes Cluster. Último acceso: junio 10, 2023
+https://devopscube.com/setup-prometheus-monitoring-on-kubernetes/
+
+[20] How to Setup Prometheus Node Exporter on Kubernetes. Último acceso: junio 10, 2023
+https://devopscube.com/node-exporter-kubernetes/
+
+[21] Network interface metrics from the node exporter. Último acceso: junio 10, 2023
+https://www.robustperception.io/network-interface-metrics-from-the-node-exporter/
+
+[22] Mapping iostat to the node exporter’s node_disk_* metrics. Último acceso: junio 10, 2023
+https://www.robustperception.io/mapping-iostat-to-the-node-exporters-node_disk_-metrics/
+
+[23] Understanding Machine CPU usage. Último acceso: junio 10, 2023
+https://www.robustperception.io/understanding-machine-cpu-usage
+
+[24] How to Deploy PostgreSQL on Kubernetes. Último acceso: junio 11, 2023
+https://phoenixnap.com/kb/postgresql-kubernetes
+
+[25] PostgreSQL Prometheus Adapter. Último acceso: junio 11, 2023
+https://github.com/CrunchyData/postgresql-prometheus-adapter
+
+[26] Timescale: Time-series data simplified. Último acceso: junio 11, 2023
+https://www.timescale.com
+
+[27] Promscale documentation. Último acceso: junio 11, 2023
+https://promscale-legacy-docs.timescale.com/
+
+[28] Promscale: An analytical platform and long-term store for Prometheus, with the combined power of SQL and PromQL. Último acceso: junio 22, 2023
+https://www.timescale.com/blog/promscale-analytical-platform-long-term-store-for-prometheus-combined-sql-promql-postgresql/
+
+[29] Helm. El administrador de paquetes para Kubernetes. Último acceso: junio 24, 2023
+https://helm.sh/es/
+
+[30] Perform advanced analytic queries. Último acceso: junio 12, 2023
+https://docs.timescale.com/use-timescale/latest/query-data/advanced-analytic-queries/
+
+[31] Custom Kubernetes Scheduler. Último acceso: junio 12, 2023
+https://docs.timescale.com/use-timescale/latest/query-data/advanced-analytic-queries/
+
+[32] Random Kubernetes scheduler. Último acceso: junio 12, 2023
+https://github.com/martonsereg/random-scheduler
+
+[33] Documentation. The Go Programming Language. Último acceso: junio 8, 2023
+https://go.dev/doc/
+
+[34] Kubebuilder. Github. Último acceso: junio 12, 2023
+https://github.com/kubernetes-sigs/kubebuilder
+
+[35] Extend the Kubernetes API with CustomResourceDefinitions. Último acceso: junio 12, 202
+https://kubernetes.io/docs/tasks/extend-kubernetes/custom-resources/custom-resource-definitions/
+
+[36] Kubernetes. Controller-tools library. Último acceso: junio 24, 2023
+https://github.com/kubernetes-sigs/controller-tools
+
+[37] Kubernetes. Custom Resources. Último acceso: junio 24, 2023
+https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/
+
+[38] Apache Kafka. Último acceso: junio 27, 2023
+https://kafka.apache.org/
+
+[39] Welcome to Apache Zookeeper. Último acceso: julio 5, 2023
+https://zookeeper.apache.org/
+
+[40] Strimzi. Último acceso: junio 27, 2023
+https://strimzi.io/
+
+
+

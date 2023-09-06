@@ -1,0 +1,119 @@
+Para decidir donde lanzaremos nuestras aplicaciones nos basaremos en el estado de los nodos segun nuestras necesidades, por ejemplo podriamos decidir priorizar el lanzamiento en nodos donde exista paca carga de red, el disco tenga poco uso, la cpus esten libres,...
+
+Para ello obtendremos las metricas que nos proporcionara prometehus, mas especificamente el componente node-exporter. el cual recolecta metricas de hardware y del sistema operativo en kernels basdos en UNIX
+
+Este componente recocolecta una cantidad ingente de metricas las cuales, muchas de ellas no son utiles para nuestro fin, por lo que deberemos hacer un analisis por menorizado para seleccionar las que si podrian ser utiles.
+
+Tras estudiar las metricas que aporta el node exporter hemos seleccionado las siguientes para decidir donde planificaremos el lanzamiento de los pods, podemos dividirlas en varios tipos:
+
+* Metricas de Red
+
+Las metricas que normalmente mas se usa para obtener el uso del ancho de banda se obtienen del modulo netdev. Las mas usadas suelen ser node_network_receive_bytes_total and node_network_transmit_bytes_total. Se representan en bytes
+
+Existen otros contadores de metricas los cuales se obtienen de /proc/net/dev, como pueden ser paquetes, errores, caidas los cuales existen tanto para transmitir como para recibir. Otras como las colisiones y los carries son se obtienen para la transmision
+Una metrica interesante para usar en nuestro proyecto podria ser el ratio de errores de transmision de datos y lo podriamos obtener tal que:
+
+ rate(node_network_transmit_errs_total[5m])  /    rate(node_network_transmit_packets_total[5m])
+Por otro lado si deseamos obtener si un enlace has estado fallando podemos hacer uso de node_network_carrier_up_changes_total y node_network_carrier_down_changes_total
+
+
+* Metricas de Disco
+
+LA mayor parte de las metricas de disco se obtienen de la herramienta iostat, para el ancho de banda lo mas habitual es hacer uso de las metricas node_disk_read_bytes_total y node_disk_written_bytes_total
+
+Tambien podrian ser interesantes las metrica que no indican el numero de lecturas y escrituras completadas correctamente node_disk_reads_completed_total, node_disk_writes_completed_total
+Podriamos ver la media que llevo realizar estas operaciones de la siguiente manera:
+
+rate(node_disk_read_time_seconds_total[5m]) / rate(node_disk_reads_completed_total[5m]) para lecturas o
+rate(node_disk_write_time_seconds_total[5m]) / rate(node_disk_write_completed_total[5m]) para escrituras
+
+Hay otra metrica interesante, la cual no es expuesta por iostat, node_disk_io_now el numero de IOs en progreso.
+
+* Metricas de CPU
+
+Hemos seleccionado esta metrica, node_cpu_seconds_total la cual se obtine de /proc/stat y que nos indica el tiempo gastado por cada cpu en cada uno de los modos los cuales son
+
+user: Tiempo gastado en userland
+system: Tiempo gastado en el kernel
+iowait: Tiempo gastado esperando por I/O
+idle: Tiempo en el que la PCU no esta haciendo nada
+irq&softirq: Tiempo sirviendo interrupcion
+guest: Si estas ejecutando maquinas virtuales, la CPU que usan
+steal: Si estas usando una maquina virtual, tiempo que otras maquinas virtuales "roban" de tu CPU
+
+Estos modos son mutualmente exclusivos. Un alto iowait significa que tu disco o red estan al limite, un alto user o system, significa que tu CPU esta al limite.
+
+These are counters, so to calculate the per-second values we use the rate function in the expression browser:
+
+rate(node_cpu_seconds_total{job="node"}[1m])
+
+Podremos sumar estos valores para obterner el valor medio de todas las cpus de un servidor
+
+sum by (mode, instance) (rate(node_cpu_seconds_total{job="node"}[1m]))
+
+Estos valores suman cada segundo en cada cpu. Los ratios por segundo son los ratios de useo. Podemos calcular el porcentage de cpu usada restando el uso de idle del 100%
+
+100 - (avg by (instance) (rate(node_cpu_seconds_total{job="node",mode="idle"}[1m])) * 100)
+
+
+----
+
+
+Para recoger estas metricas y poder posteriormente planificar deonde lanzaremos nuestros pods hemos diseñado una serie de vistas que agrupan las metricas seleccionadas
+
+CREATE OR REPLACE VIEW network_metrics
+    AS select v.metric_id,
+    l.metric_name,
+    l.metric_labels ->> 'job' as job,
+    l.metric_labels ->> 'device' as device,
+    l.metric_labels ->> 'instance' as instance,
+    v.metric_time, v.metric_value
+FROM    metric_labels l,
+        metric_values v
+WHERE l.metric_id = v.metric_id
+  AND l.metric_name
+   IN ('node_network_carrier_up_changes_total',
+       'node_network_carrier_down_changes_total',
+       'node_network_receive_bytes_total',
+       'node_network_transmit_bytes_total',
+       'node_network_transmit_errs_total',
+       'node_network_transmit_packets_total');
+
+METRICAS DE DISCO
+
+CREATE OR REPLACE VIEW disk_metrics
+    AS select v.metric_id,
+              l.metric_name,
+              l.metric_labels ->> 'job' as job,
+              l.metric_labels ->> 'device' as device,
+              l.metric_labels ->> 'instance' as instance,
+              v.metric_time,
+              v.metric_value
+FROM metric_labels l,
+    metric_values v
+WHERE l.metric_id= v.metric_id
+  AND l.metric_name
+  IN ('node_disk_read_bytes_total',
+  'node_disk_written_bytes_total',
+      'node_disk_write_completed_total',
+      'node_disk_reads_completed_total',
+      'node_disk_write_time_seconds_total',
+      'node_disk_read_time_seconds_total',
+      'node_disk_io_now');
+
+METRICAS DE CPU
+
+CREATE OR REPLACE VIEW cpu_metrics
+AS select v.metric_id,
+          l.metric_name,
+          l.metric_labels ->> 'job' as job,
+          l.metric_labels ->> 'cpu' as cpu,
+          l.metric_labels ->> 'mode' as mode,
+          l.metric_labels ->> 'instance' as instance,
+          v.metric_time,
+          v.metric_value
+FROM metric_labels l,
+     metric_values v
+WHERE l.metric_id= v.metric_id
+ AND  l.metric_name
+ IN ('node_cpu_seconds_total');

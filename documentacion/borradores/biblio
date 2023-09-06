@@ -1,0 +1,31 @@
+    https://medium.com/pareture/robust-perception-reliable-insights-890f19addecb
+
+https://www.robustperception.io/filesystem-metrics-from-the-node-exporter/
+https://www.robustperception.io/understanding-machine-cpu-usage/
+https://www.robustperception.io/cpu-frequency-scaling-metrics-from-the-node-exporter/
+https://povilasv.me/prometheus-go-metrics/
+https://www.robustperception.io/network-interface-metrics-from-the-node-exporter/
+https://brian-candler.medium.com/interpreting-prometheus-metrics-for-linux-disk-i-o-utilization-4db53dfedcfc
+
+
+https://leftasexercise.com/2019/06/17/kubernetes-on-your-pc-playing-with-minikube/
+
+
+
+Custom Scheduler
+
+https://thechief.io/c/editorial/kubernetes-building-custom-scheduler/
+https://banzaicloud.com/blog/k8s-custom-scheduler/
+https://kubernetes.io/docs/tasks/extend-kubernetes/configure-multiple-schedulers/
+https://kubernetes.io/blog/2020/12/21/writing-crl-scheduler/
+https://www.alibabacloud.com/blog/a-brief-analysis-on-the-implementation-of-the-kubernetes-scheduler_595083
+
+
+Scheduling
+
+https://dominik-tornow.medium.com/the-kubernetes-scheduler-cd429abac02f
+https://kubernetes.io/docs/concepts/scheduling-eviction/kube-scheduler/
+https://granulate.io/blog/a-deep-dive-into-kubernetes-scheduling/
+https://kubernetes.io/docs/concepts/scheduling-eviction/scheduling-framework/
+
+nuevo pin en w10

@@ -1,0 +1,103 @@
+Tiempo del core en cada modo
+
+# HELP node_cpu_seconds_total Seconds the CPUs spent in each mode.
+# TYPE node_cpu_seconds_total counter
+node_cpu_seconds_total{cpu="0",mode="idle"} 84327.96
+node_cpu_seconds_total{cpu="0",mode="iowait"} 87
+node_cpu_seconds_total{cpu="0",mode="irq"} 0
+node_cpu_seconds_total{cpu="0",mode="nice"} 20.07
+node_cpu_seconds_total{cpu="0",mode="softirq"} 3474.04
+node_cpu_seconds_total{cpu="0",mode="steal"} 0
+node_cpu_seconds_total{cpu="0",mode="system"} 7076.78
+node_cpu_seconds_total{cpu="0",mode="user"} 6015.96
+
+Valor actual de frecuencia de cada uno de los cores
+# HELP node_cpu_scaling_frequency_hertz Current scaled CPU thread frequency in hertz.
+# TYPE node_cpu_scaling_frequency_hertz gauge
+node_cpu_scaling_frequency_hertz{cpu="0"} 1.439927e+09
+
+===========================================================================
+
+Operacion I/O en progreso
+
+# HELP node_disk_io_now The number of I/Os currently in progress.
+# TYPE node_disk_io_now gauge
+node_disk_io_now{device="dm-0"} 0
+node_disk_io_now{device="dm-1"} 0
+node_disk_io_now{device="dm-2"} 0
+node_disk_io_now{device="nvme0n1"} 0
+
+===========================================================================
+
+RED
+
+para obtener ancho de banda
+
+# HELP node_network_receive_bytes_total Network device statistic receive_bytes.
+# TYPE node_network_receive_bytes_total counter
+node_network_receive_bytes_total{device="eth0"} 150708
+node_network_receive_bytes_total{device="lo"} 0
+# HELP node_network_transmit_bytes_total Network device statistic transmit_bytes.
+# TYPE node_network_transmit_bytes_total counter
+node_network_transmit_bytes_total{device="eth0"} 3.186839e+06
+node_network_transmit_bytes_total{device="lo"} 0
+
+También interesante para calcular la tasa de error de transmisión de datos
+
+# HELP node_network_transmit_errs_total Network device statistic transmit_errs.
+# TYPE node_network_transmit_errs_total counter
+node_network_transmit_errs_total{device="eth0"} 0
+node_network_transmit_errs_total{device="lo"} 0
+# HELP node_network_transmit_packets_total Network device statistic transmit_packets.
+# TYPE node_network_transmit_packets_total counter
+node_network_transmit_packets_total{device="eth0"} 1187
+node_network_transmit_packets_total{device="lo"} 0
+
+MTU y velocidad de transferencia por cada interfaz de de red
+
+# HELP node_network_mtu_bytes Network device property: mtu_bytes
+# TYPE node_network_mtu_bytes gauge
+node_network_mtu_bytes{device="eth0"} 1500
+node_network_mtu_bytes{device="lo"} 65536
+# HELP node_network_speed_bytes Network device property: speed_bytes
+# TYPE node_network_speed_bytes gauge
+node_network_speed_bytes{device="eth0"} 1.25e+09
+
+Indica caidas
+
+# HELP node_network_carrier_changes_total Network device property: carrier_changes_total
+# TYPE node_network_carrier_changes_total counter
+node_network_carrier_changes_total{device="eth0"} 2
+node_network_carrier_changes_total{device="lo"} 0
+# HELP node_network_carrier_down_changes_total Network device property: carrier_down_changes_total
+# TYPE node_network_carrier_down_changes_total counter
+node_network_carrier_down_changes_total{device="eth0"} 1
+node_network_carrier_down_changes_total{device="lo"} 0
+# HELP node_network_carrier_up_changes_total Network device property: carrier_up_changes_total
+# TYPE node_network_carrier_up_changes_total counter
+node_network_carrier_up_changes_total{device="eth0"} 1
+node_network_carrier_up_changes_total{device="lo"} 0
+
+
+
+Memoria
+
+# HELP process_resident_memory_bytes Resident memory size in bytes.
+# TYPE process_resident_memory_bytes gauge
+process_resident_memory_bytes 1.9869696e+07
+
+# HELP process_virtual_memory_bytes Virtual memory size in bytes.
+# TYPE process_virtual_memory_bytes gauge
+process_virtual_memory_bytes 7.44808448e+08
+
+# HELP go_memstats_alloc_bytes Number of bytes allocated and still in use.
+# TYPE go_memstats_alloc_bytes gauge
+go_memstats_alloc_bytes 3.412752e+06
+
+# HELP go_memstats_heap_alloc_bytes Number of heap bytes allocated and still in use.
+# TYPE go_memstats_heap_alloc_bytes gauge
+go_memstats_heap_alloc_bytes 3.412752e+06
+
+# HELP process_open_fds Number of open file descriptors.
+# TYPE process_open_fds gauge
+process_open_fds 10

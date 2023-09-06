@@ -1,0 +1,98 @@
+Capítulo 1. Introducción: Motivación, Objetivos y metodología, Estructura del resto de la memoria,
+Competencias necesarias, …
+
+
+Capítulo 2. Estado del arte: Conceptos relacionados, Herramientas empleadas, Situación de partida,
+Problemática planteada en la bibliografía, …
+
+Conceptos
+
+Docker contenedores
+
+Kubernetes
+
+patron operador
+
+servidores de metricas Prometheus
+Lom
+bases de datos series temporales
+
+Golang
+
+Herramientas utilizadas
+
+Minikube
+
+Kind
+
+Prometheus
+
+node exporter
+
+Kubebuilder
+
+kafka
+Timescaledb
+promscale
+
+Goland
+
+
+explicar scheduling kubernetes
+
+
+
+Capítulo 3. Metodología y Desarrollo: Limitaciones y condicionantes, requisitos, descripción del
+diseño llevado a cabo y la metodología empleada,…
+
+Explicar a grandes rasgos  lo que se va a realizar
+
+Creacion del entorno
+bases de datos series temporales
+
+Golang
+Scripts de kind y de minikube
+
+Despliegue de prometehus server
+
+Instalacion de node-exporter
+
+Analisis de metricas mas importantes
+
+-----
+
+Persistencia  de datos
+
+Postgres + adapter
+
+timescaledb + promscale
+
+-----
+
+
+ejecucion de test de carga con kafka
+
+
+-----
+
+
+Creacion del planificador
+
+
+-----
+
+Creacion del operador de planificadores
+
+
+
+
+
+
+
+
+Capítulo 4. Resultados: Descripción de las pruebas efectuadas sobre el diseño realizado, discusión,
+comparación,…
+
+
+
+Capítulo 5. Conclusiones y trabajo futuro

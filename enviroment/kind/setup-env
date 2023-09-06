@@ -1,0 +1,6 @@
+#!/bin/bash
+
+export DEV_WORKSPACE=~/kubernetes/environments/kind/workspace
+
+export KUBERNETES_DEFAULT_VERSION="1.25"
+export KUBERNETES_VERSION=${KUBERNETES_VERSION:-${KUBERNETES_DEFAULT_VERSION}}

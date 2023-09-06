@@ -1,0 +1,55 @@
+# Default values for scheduler-operator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: localhost:5000/albertogomez
+  tag: "0.0.0"
+  pullPolicy: Always
+
+nameOverride: ""
+fullnameOverride: ""
+
+# A comma-separated list of namespaces that the operator should watch.
+# If empty, the scheduler operator will watch all namespaces in the cluster.
+watchNamespaces: ""
+
+# Log config
+log:
+  # Development mode
+  devMode: false
+  # Encoder ("json" or "console" only supported)
+  encoder: "console"
+  # Log Level in the Operator
+  levelOperator: "INFO"
+  # Log Level in the Stacktrace
+  levelStacktrace: "ERROR"
+
+serviceAccount:
+  # Specifies whether a ServiceAccount should be created
+  create: true
+  # The name of the ServiceAccount to use.
+  # Required if create is false.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+## @param priorityClassName operator pods' priorityClassName
+##
+priorityClassName: ""
+
+webhook:
+  caBundle: ""
+
+images:
+  operator: "scheduler-operator"
+  metricScheduler: "scheduler"

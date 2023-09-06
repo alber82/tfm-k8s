@@ -1,0 +1,22 @@
+
+
+{{- if .Values.serviceAccount.create }}
+{{- range $namespace := (split "," (include "scheduler-operator.watchNamespaces" $)) }}
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: {{ include "scheduler-operator.roleType" $ }}Binding
+metadata:
+  name: {{ include "scheduler-operator.fullname" $ }}-rolebinding
+  namespace: {{ $namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: {{ include "scheduler-operator.roleType" $ }}
+  name: {{ include "scheduler-operator.fullname" $ }}-role
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "scheduler-operator.serviceAccountName" $ }}
+    namespace: {{ $.Release.Namespace }}
+
+{{- end }}
+{{- end }}

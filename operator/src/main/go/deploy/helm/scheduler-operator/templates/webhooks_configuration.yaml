@@ -1,0 +1,80 @@
+
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: MutatingWebhookConfiguration
+metadata:
+  name: {{ include "scheduler-operator.fullname" $ }}-mutating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1beta1
+  - v1
+  clientConfig:
+    caBundle: {{ .Values.webhook.caBundle }}
+    service:
+      name: {{ include "scheduler-operator.fullname" $ }}-webhook-service
+      namespace: {{ $.Release.Namespace }}
+      path: /mutate-scheduler-uclm-es-v1-metricscheduler
+  failurePolicy: Fail
+  name: mmetricscheduler.uclm.es
+  {{- if .Values.watchNamespaces }}
+  namespaceSelector:
+    matchExpressions:
+    - key: name
+      operator: In
+      values:
+      {{- range $namespace := (split "," (include "scheduler-operator.watchNamespaces" $)) }}
+      - {{ $namespace }}
+      {{- end }}
+  {{- end }}
+  rules:
+  - apiGroups:
+    - scheduler.uclm.es
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    scope: "Namespaced"
+    resources:
+    - metricschedulers
+  sideEffects: None
+
+---
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: {{ include "scheduler-operator.fullname" $ }}-validating-webhook-configuration
+webhooks:
+- admissionReviewVersions:
+  - v1beta1
+  - v1
+  clientConfig:
+    caBundle: {{ .Values.webhook.caBundle }}
+    service:
+      name: {{ include "scheduler-operator.fullname" $ }}-webhook-service
+      namespace: {{ $.Release.Namespace }}
+      path: /validate-scheduler-uclm-es-v1-metricscheduler
+  failurePolicy: Fail
+  name: vmetricscheduler.uclm.es
+  {{- if .Values.watchNamespaces }}
+  namespaceSelector:
+    matchExpressions:
+    - key: name
+      operator: In
+      values:
+      {{- range $namespace := (split "," (include "scheduler-operator.watchNamespaces" $)) }}
+      - {{ $namespace }}
+      {{- end }}
+  {{- end }}
+  rules:
+  - apiGroups:
+    - scheduler.uclm.es
+    apiVersions:
+    - v1
+    operations:
+    - CREATE
+    - UPDATE
+    scope: "Namespaced"
+    resources:
+    - metricschedulers
+  sideEffects: None

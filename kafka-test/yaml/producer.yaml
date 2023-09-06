@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: kafka
+  name: kafka-producer
+  labels:
+    app: kafka-producer
+spec:
+  selector:
+    matchLabels:
+      app: kafka-producer
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: kafka-producer
+    spec:
+      hostname: producer
+      subdomain: kafka-producer
+      containers:
+        - name: kafka-producer
+          image: localhost:5000/kafka/kafka-perf-test:0.1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 9201
+              name: listen
+              protocol: TCP
+          env:
+            - name: TEST_TYPE
+              value: "producer"
+            - name: CLUSTER_URL
+              value: "kafka-cluster-kafka-bootstrap:9092"
+            - name: TOPIC
+              value: "test-topic"
+            - name: NUM_RECORD
+              value: "5000000"
+            - name: RECORD_SIZE
+              value: "512"
+            - name: THROUGHPUT
+              value: "1000"
+          resources:
+            requests:
+              cpu: 1500m
+              memory: 1024M
+            limits:
+              cpu: 1500m
+              memory: 1024M
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: NotIn
+                    values:
+                      - tfm-dev-m02
+                      - tfm-dev
